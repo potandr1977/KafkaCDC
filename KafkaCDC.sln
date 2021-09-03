@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaCDC.Settings", "KafkaCDC.Settings\KafkaCDC.Settings.csproj", "{8C17E802-AE98-4B98-8813-D509E2D77EB3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaCDC.FillMongoConsole", "KafkaCDC.FillMongoConsole\KafkaCDC.FillMongoConsole.csproj", "{07E3772D-4510-46D2-B15C-34B7E1E27880}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaCDC.ProjectionConsole", "KafkaCDC.ProjectionConsole\KafkaCDC.ProjectionConsole.csproj", "{54159A8B-E468-4C30-BC8E-9EE833411323}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaCDC.QueryApi", "KafkaCDC.QueryApi\KafkaCDC.QueryApi.csproj", "{60D2DC99-7AD8-49C2-AB00-039719A6C48B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaCDC.KafkaConnectConfigureConsole", "KafkaCDC.KafkaConnectConfigureConsole\KafkaCDC.KafkaConnectConfigureConsole.csproj", "{C24DF6D4-776E-49CD-9671-5CC9D73BDD88}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaCDC.DataAccess.Elastic", "KafkaCDC.DataAccess.Elastic\KafkaCDC.DataAccess.Elastic.csproj", "{91B5FEC4-0B8D-4D71-B4E2-171ED66E93A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mongo", "Mongo", "{55F6A1EA-ECCC-46CD-BCCB-4224230DA282}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elastic", "Elastic", "{DD476E46-B251-477B-8B27-0F6E6644FABF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projection", "Projection", "{DAC32A26-1951-42D4-B582-DD0E8AE6616A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaCDC.Domain.Elastic", "KafkaCDC.Domain.Elastic\KafkaCDC.Domain.Elastic.csproj", "{F0B89F75-2FD7-499A-840A-0E0DBEAA89FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafkaCDC.Domain.Mongo", "KafkaCDC.Domain.Mongo\KafkaCDC.Domain.Mongo.csproj", "{5E606C7E-C2B5-4F45-82CC-98061E6F7A80}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C17E802-AE98-4B98-8813-D509E2D77EB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C17E802-AE98-4B98-8813-D509E2D77EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C17E802-AE98-4B98-8813-D509E2D77EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C17E802-AE98-4B98-8813-D509E2D77EB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07E3772D-4510-46D2-B15C-34B7E1E27880}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07E3772D-4510-46D2-B15C-34B7E1E27880}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07E3772D-4510-46D2-B15C-34B7E1E27880}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07E3772D-4510-46D2-B15C-34B7E1E27880}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54159A8B-E468-4C30-BC8E-9EE833411323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54159A8B-E468-4C30-BC8E-9EE833411323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54159A8B-E468-4C30-BC8E-9EE833411323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54159A8B-E468-4C30-BC8E-9EE833411323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60D2DC99-7AD8-49C2-AB00-039719A6C48B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60D2DC99-7AD8-49C2-AB00-039719A6C48B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60D2DC99-7AD8-49C2-AB00-039719A6C48B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60D2DC99-7AD8-49C2-AB00-039719A6C48B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C24DF6D4-776E-49CD-9671-5CC9D73BDD88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C24DF6D4-776E-49CD-9671-5CC9D73BDD88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C24DF6D4-776E-49CD-9671-5CC9D73BDD88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C24DF6D4-776E-49CD-9671-5CC9D73BDD88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91B5FEC4-0B8D-4D71-B4E2-171ED66E93A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91B5FEC4-0B8D-4D71-B4E2-171ED66E93A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91B5FEC4-0B8D-4D71-B4E2-171ED66E93A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91B5FEC4-0B8D-4D71-B4E2-171ED66E93A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0B89F75-2FD7-499A-840A-0E0DBEAA89FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0B89F75-2FD7-499A-840A-0E0DBEAA89FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0B89F75-2FD7-499A-840A-0E0DBEAA89FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0B89F75-2FD7-499A-840A-0E0DBEAA89FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E606C7E-C2B5-4F45-82CC-98061E6F7A80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E606C7E-C2B5-4F45-82CC-98061E6F7A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E606C7E-C2B5-4F45-82CC-98061E6F7A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E606C7E-C2B5-4F45-82CC-98061E6F7A80}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{07E3772D-4510-46D2-B15C-34B7E1E27880} = {55F6A1EA-ECCC-46CD-BCCB-4224230DA282}
+		{54159A8B-E468-4C30-BC8E-9EE833411323} = {DAC32A26-1951-42D4-B582-DD0E8AE6616A}
+		{60D2DC99-7AD8-49C2-AB00-039719A6C48B} = {DD476E46-B251-477B-8B27-0F6E6644FABF}
+		{91B5FEC4-0B8D-4D71-B4E2-171ED66E93A6} = {DD476E46-B251-477B-8B27-0F6E6644FABF}
+		{F0B89F75-2FD7-499A-840A-0E0DBEAA89FE} = {DD476E46-B251-477B-8B27-0F6E6644FABF}
+		{5E606C7E-C2B5-4F45-82CC-98061E6F7A80} = {55F6A1EA-ECCC-46CD-BCCB-4224230DA282}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0061E121-FDC7-4E22-9F0B-E0778993351E}
+	EndGlobalSection
+EndGlobal
