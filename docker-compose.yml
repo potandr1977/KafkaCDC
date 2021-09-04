@@ -5,11 +5,10 @@ services:
     image: mongo:latest
     ports:
       - 27019:27017
-    container_name: messageapprover_mongodb
+    container_name: kafkacdc_mongodb
     restart: always
     environment:
-      - MONGO_INITDB_DATABASE=madb
-    
+      - MONGO_INITDB_DATABASE=depositdb
 
   elasticsearch:
     image: 'elasticsearch:6.6.0'
@@ -30,11 +29,9 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:latest
-    depends_on:
-      - zookeeper
-      - mongodb
     ports:
       - "9093:9093"
+    container_name: kafka
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9093
@@ -44,6 +41,9 @@ services:
       KAFKA_LOG_CLEANER_DELETE_RETENTION_MS: 5000
       KAFKA_BROKER_ID: 1
       KAFKA_MIN_INSYNC_REPLICAS: 1
+    depends_on:
+      - zookeeper
+      - mongodb
 
   connector:
     image: debezium/connect:0.10
@@ -65,23 +65,40 @@ services:
     build:
       context: .
       dockerfile: KafkaCDC.KafkaConnectConfigureConsole/Dockerfile
+    depends_on:
+      - zookeeper
+      - mongodb
+      - kafka
 
   kafkacdc.fillmongoconsole:
     image: ${DOCKER_REGISTRY-}kafkacdcfillmongoconsole
     build:
       context: .
       dockerfile: KafkaCDC.FillMongoConsole/Dockerfile
-
+    depends_on:
+      - zookeeper
+      - mongodb
+      - kafka
+      - kafkacdc.kafkaconnectconfigureconsole
 
   kafkacdc.projectionconsole:
     image: ${DOCKER_REGISTRY-}kafkacdcprojectionconsole
     build:
       context: .
       dockerfile: KafkaCDC.ProjectionConsole/Dockerfile
-
+    depends_on:
+      - zookeeper
+      - mongodb
+      - kafka
+      - kafkacdc.kafkaconnectconfigureconsole
 
   kafkacdc.queryapi:
     image: ${DOCKER_REGISTRY-}kafkacdcqueryapi
     build:
       context: .
       dockerfile: KafkaCDC.QueryApi/Dockerfile
+    depends_on:
+      - zookeeper
+      - mongodb
+      - kafka
+      - kafkacdc.projectionconsole
