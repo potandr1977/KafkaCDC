@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "KafkaCDC.FillMongoConsole": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

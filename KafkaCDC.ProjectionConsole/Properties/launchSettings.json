@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "KafkaCDC.ProjectionConsole": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
