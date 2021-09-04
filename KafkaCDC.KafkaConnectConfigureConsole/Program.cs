@@ -8,7 +8,7 @@ namespace KafkaCDC.KafkaConnectConfitureConsole
 {
     class Program
     {
-        private const string KafkaConnectUrl = "http://www.example.com/recepticle.aspx";
+        private const string KafkaConnectUrl = "http://connector:8083/connectors/";
         private static readonly HttpClient client = new HttpClient();
 
         static async Task Main(string[] args)
@@ -19,16 +19,18 @@ namespace KafkaCDC.KafkaConnectConfitureConsole
 
         private static async Task SendConfigurationToKafkaConnect(string json)
         {
-            using var content = new StringContent(JsonConvert.SerializeObject(json), System.Text.Encoding.UTF8, "application/json");
+            using var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             var result = await client.PostAsync(KafkaConnectUrl, content);
+            var returnValue = await result.Content.ReadAsStringAsync();
 
             if (result.StatusCode == System.Net.HttpStatusCode.Created)
             {
-                Console.WriteLine("Configuration successfully uploaded to KafkaConnect"); ;
+                Console.WriteLine("Configuration successfully uploaded to KafkaConnect");
             }
-
-            var returnValue = await result.Content.ReadAsStringAsync();
-            Console.WriteLine($"Failed to POST data: ({result.StatusCode}): {returnValue}");
+            else
+            {
+                Console.WriteLine($"Failed to POST data: ({result.StatusCode}): {returnValue}");
+            }
         }
     }
 }

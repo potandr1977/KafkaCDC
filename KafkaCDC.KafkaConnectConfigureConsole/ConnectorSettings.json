@@ -2,7 +2,7 @@
     "name": "deposit-connector", 
     "config": {
       "connector.class": "io.debezium.connector.mongodb.MongoDbConnector", 
-      "mongodb.hosts": "192.0.0.1:27017", 
+      "mongodb.hosts": "127.0.0.1:27017", 
       "mongodb.name": "depositdb", 
       "collection.include.list": "deposits[.]*" 
     }

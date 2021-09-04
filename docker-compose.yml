@@ -4,7 +4,7 @@ services:
   mongodb:
     image: mongo:latest
     ports:
-      - 27019:27017
+      - 27017:27017
     container_name: kafkacdc_mongodb
     restart: always
     environment:
@@ -14,7 +14,7 @@ services:
     image: 'elasticsearch:6.6.0'
     ports:
       - 9209:9200
-      - 9309:9300
+      - 9300:9300
     container_name: kafkacdc_elastic
     restart: always
     environment:
@@ -24,6 +24,7 @@ services:
     image: confluentinc/cp-zookeeper:latest
     ports:
       - "2181:2181"
+    container_name: zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
 
@@ -49,6 +50,7 @@ services:
     image: debezium/connect:0.10
     ports:
       - "8083:8083"
+    container_name: connector
     environment:
       GROUP_ID: 1
       CONFIG_STORAGE_TOPIC: my_connect_configs
@@ -59,6 +61,17 @@ services:
       - mongodb
       - kafka
 
+  kafka-manager:
+    image: sheepkiller/kafka-manager:latest
+    container_name: kafka-manager
+    ports:
+      - "9009:9000"
+    links:
+     - zookeeper
+     - kafka
+    environment:
+      ZK_HOSTS: zookeeper:2181
+      KM_ARGS: -Djava.net.preferIPv4Stack=true
 
   kafkacdc.kafkaconnectconfigureconsole:
     image: ${DOCKER_REGISTRY-}kafkacdckafkaconnectconfigureconsole
