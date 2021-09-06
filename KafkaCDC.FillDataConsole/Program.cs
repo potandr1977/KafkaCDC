@@ -1,4 +1,6 @@
-﻿using KafkaCDC.Domain.Mongo;
+﻿using KafkaCDC.DataAccess.PostgreSQL;
+using KafkaCDC.Domain.FillData;
+using System;
 using System.Threading.Tasks;
 
 namespace KafkaCDC.FillMongoConsole
@@ -15,15 +17,25 @@ namespace KafkaCDC.FillMongoConsole
                 new Deposit(JohnMalkovich,20),
                 new Deposit(JohnMalkovich,30),
                 new Deposit(DustinHoffman,40),
-                new Deposit(DustinHoffman,50)
+                new Deposit(DustinHoffman,50),
+                new Deposit(DustinHoffman,60),
+                new Deposit(DustinHoffman,70)
             };
 
-            var mongoDao = new MongoDao();
+            var depositDao = new DepositDao();
 
             foreach (var deposit in deposits)
             {
                 await Task.Delay(10000);
-                await mongoDao.Save(deposit);
+                try
+                {
+                    await depositDao.Save(deposit);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"FillConsole error: {e.Message}");
+                }
+                
             }
         }
     }

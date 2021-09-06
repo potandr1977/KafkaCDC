@@ -7,16 +7,19 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY ["QueryApi/QueryApi.csproj", "QueryApi/"]
-RUN dotnet restore "QueryApi/QueryApi.csproj"
+COPY ["KafkaCDC.QueryApi/KafkaCDC.QueryApi.csproj", "KafkaCDC.QueryApi/"]
+COPY ["KafkaCDC.DataAccess.Elastic/KafkaCDC.DataAccess.Elastic.csproj", "KafkaCDC.DataAccess.Elastic/"]
+COPY ["KafkaCDC.Domain.Elastic/KafkaCDC.Domain.Elastic.csproj", "KafkaCDC.Domain.Elastic/"]
+COPY ["KafkaCDC.Settings/KafkaCDC.Settings.csproj", "KafkaCDC.Settings/"]
+RUN dotnet restore "KafkaCDC.QueryApi/KafkaCDC.QueryApi.csproj"
 COPY . .
-WORKDIR "/src/QueryApi"
-RUN dotnet build "QueryApi.csproj" -c Release -o /app/build
+WORKDIR "/src/KafkaCDC.QueryApi"
+RUN dotnet build "KafkaCDC.QueryApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "QueryApi.csproj" -c Release -o /app/publish
+RUN dotnet publish "KafkaCDC.QueryApi.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "QueryApi.dll"]
+ENTRYPOINT ["dotnet", "KafkaCDC.QueryApi.dll"]

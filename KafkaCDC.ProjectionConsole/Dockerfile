@@ -8,7 +8,7 @@ WORKDIR /src
 COPY ["KafkaCDC.ProjectionConsole/KafkaCDC.ProjectionConsole.csproj", "KafkaCDC.ProjectionConsole/"]
 COPY ["KafkaCDC.DataAccess.Elastic/KafkaCDC.DataAccess.Elastic.csproj", "KafkaCDC.DataAccess.Elastic/"]
 COPY ["KafkaCDC.Domain.Elastic/KafkaCDC.Domain.Elastic.csproj", "KafkaCDC.Domain.Elastic/"]
-COPY ["KafkaCDC.Domain.Mongo/KafkaCDC.Domain.Mongo.csproj", "KafkaCDC.Domain.Mongo/"]
+COPY ["KafkaCDC.Domain.FillData/KafkaCDC.Domain.PostgreSQL.csproj", "KafkaCDC.Domain.FillData/"]
 COPY ["KafkaCDC.Settings/KafkaCDC.Settings.csproj", "KafkaCDC.Settings/"]
 RUN dotnet restore "KafkaCDC.ProjectionConsole/KafkaCDC.ProjectionConsole.csproj"
 COPY . .

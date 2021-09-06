@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>239ab3eb-93ce-48fd-a7f5-dbb1abe7910c</ProjectGuid>
+    <ProjectGuid>99b809c1-363c-407b-be36-4f7b16331284</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>kafkacdc.queryapi</DockerServiceName>

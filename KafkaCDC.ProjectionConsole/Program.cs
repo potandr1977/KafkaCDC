@@ -5,7 +5,7 @@ using System;
 using System.Text.Json;
 using System.Threading;
 
-namespace KafkaCDC.Domain.Mongo
+namespace KafkaCDC.Domain.FillData
 {
     class Program
     {

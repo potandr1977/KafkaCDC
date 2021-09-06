@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\KafkaCDC.DataAccess.PostgreSQL\KafkaCDC.DataAccess.PostgreSQL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="KafkaConnectSettings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

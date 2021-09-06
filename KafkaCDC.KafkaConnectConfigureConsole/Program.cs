@@ -1,4 +1,5 @@
-﻿using KafkaCDC.KafkaConnectConfigureConsole;
+﻿using KafkaCDC.DataAccess.PostgreSQL;
+using KafkaCDC.KafkaConnectConfigureConsole;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -14,7 +15,15 @@ namespace KafkaCDC.KafkaConnectConfitureConsole
         static async Task Main(string[] args)
         {
             var json = KafkaConnectSettings.ConnectorSettings;
+
+            //await CreatePostgresTable();
             await SendConfigurationToKafkaConnect(json);
+        }
+
+        private static Task CreatePostgresTable()
+        {
+            var depositDao = new DepositDao();
+            return depositDao.CreateDepositsTalbe();
         }
 
         private static async Task SendConfigurationToKafkaConnect(string json)
@@ -23,14 +32,12 @@ namespace KafkaCDC.KafkaConnectConfitureConsole
             var result = await client.PostAsync(KafkaConnectUrl, content);
             var returnValue = await result.Content.ReadAsStringAsync();
 
-            if (result.StatusCode == System.Net.HttpStatusCode.Created)
-            {
-                Console.WriteLine("Configuration successfully uploaded to KafkaConnect");
-            }
-            else
-            {
-                Console.WriteLine($"Failed to POST data: ({result.StatusCode}): {returnValue}");
-            }
+            var consoleMessage =  (result.StatusCode == System.Net.HttpStatusCode.Created)
+            ?"Configuration successfully uploaded to KafkaConnect"
+            :$"Failed to POST data: ({result.StatusCode}): {returnValue}";
+
+            Console.WriteLine(consoleMessage);
+            
         }
     }
 }
