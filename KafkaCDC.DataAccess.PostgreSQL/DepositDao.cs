@@ -17,17 +17,8 @@ namespace KafkaCDC.DataAccess.PostgreSQL
 
         public Task Save(Deposit deposit)
         {
-            string sql = $"Insert into Deposits (Name,Sum) values ('{deposit.Name}','{deposit.Sum}')";
-
-            return connection.ExecuteAsync(sql);
-        }
-
-        public Task CreateDepositsTalbe()
-        {
-            string sql = @"CREATE TABLE Employee ( 
-                            name varchar(100), 
-                            sum integer
-                         );";
+            //insert into public."Deposits" ("Name","Sum") values ('123',1)
+            string sql = $"insert into public.\"Deposits\" (\"Name\",\"Sum\") values ('{deposit.Name}',{deposit.Sum})";
 
             return connection.ExecuteAsync(sql);
         }

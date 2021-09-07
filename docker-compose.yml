@@ -3,7 +3,6 @@ version: '3.4'
 services:
   pgserver:
     image: postgres
-    restart: always
     ports:
       - 5439:5432
     container_name: kafkacdc_postgres
@@ -94,8 +93,9 @@ services:
       context: .
       dockerfile: KafkaCDC.FillDataConsole/Dockerfile
     depends_on:
-      - kafkacdc.kafkaconnectconfigureconsole
+      - kafka
       - pgserver
+      - kafkacdc.kafkaconnectconfigureconsole
 
   kafkacdc.projectionconsole:
     image: ${DOCKER_REGISTRY-}kafkacdcprojectionconsole
@@ -103,7 +103,8 @@ services:
       context: .
       dockerfile: KafkaCDC.ProjectionConsole/Dockerfile
     depends_on:
-      - kafkacdc.filldataconsole
+      - kafkacdc.kafkaconnectconfigureconsole
+      - kafka
       - pgserver
       - elasticsearch
 
@@ -113,7 +114,7 @@ services:
       context: .
       dockerfile: KafkaCDC.QueryApi/Dockerfile
     depends_on:
-      - kafkacdc.projectionconsole
+      - kafkacdc.kafkaconnectconfigureconsole
       - elasticsearch
 
 volumes:

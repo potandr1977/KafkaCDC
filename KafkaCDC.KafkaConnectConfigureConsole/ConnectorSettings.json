@@ -1,9 +1,13 @@
 {
-    "name": "deposit-connector", 
-    "config": {
-      "connector.class": "io.debezium.connector.mongodb.MongoDbConnector", 
-      "mongodb.hosts": "127.0.0.1:27017", 
-      "mongodb.name": "depositdb", 
-      "collection.include.list": "deposits[.]*" 
-    }
+  "name": "pgserver-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "database.hostname": "pgserver",
+    "database.port": "5432",
+    "database.user": "adm",
+    "database.password": "adm",
+    "database.dbname": "depositdb",
+    "database.server.name": "pgserver",
+    "table.include.list": "public.deposits"
+  }
 }

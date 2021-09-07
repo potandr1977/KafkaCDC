@@ -1,6 +1,4 @@
-﻿using KafkaCDC.DataAccess.PostgreSQL;
-using KafkaCDC.KafkaConnectConfigureConsole;
-using Newtonsoft.Json;
+﻿using KafkaCDC.KafkaConnectConfigureConsole;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -18,12 +16,6 @@ namespace KafkaCDC.KafkaConnectConfitureConsole
 
             //await CreatePostgresTable();
             await SendConfigurationToKafkaConnect(json);
-        }
-
-        private static Task CreatePostgresTable()
-        {
-            var depositDao = new DepositDao();
-            return depositDao.CreateDepositsTalbe();
         }
 
         private static async Task SendConfigurationToKafkaConnect(string json)
