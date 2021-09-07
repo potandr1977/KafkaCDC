@@ -2,12 +2,13 @@
   "name": "pgserver-connector",
   "config": {
     "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "plugin.name": "pgoutput",
     "database.hostname": "pgserver",
     "database.port": "5432",
     "database.user": "adm",
     "database.password": "adm",
     "database.dbname": "depositdb",
     "database.server.name": "pgserver",
-    "table.include.list": "public.deposits"
+    "table.include.list": "public.(.*)"
   }
 }

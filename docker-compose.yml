@@ -9,6 +9,10 @@ services:
     environment:
       - POSTGRES_USER=adm
       - POSTGRES_PASSWORD=adm
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
