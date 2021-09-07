@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   pgserver:
-    image: postgres
+    image: debezium/postgres:13
     ports:
       - 5439:5432
     container_name: kafkacdc_postgres
@@ -15,7 +15,7 @@ services:
       - "wal_level=logical"
     volumes:
       - pgdata:/var/lib/postgresql/data
-
+  
   elasticsearch:
     image: 'elasticsearch:6.6.0'
     ports:
