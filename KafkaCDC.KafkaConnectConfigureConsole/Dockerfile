@@ -6,6 +6,9 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["KafkaCDC.KafkaConnectConfigureConsole/KafkaCDC.KafkaConnectConfigureConsole.csproj", "KafkaCDC.KafkaConnectConfigureConsole/"]
+COPY ["KafkaCDC.DataAccess.PostgreSQL/KafkaCDC.DataAccess.PostgreSQL.csproj", "KafkaCDC.DataAccess.PostgreSQL/"]
+COPY ["KafkaCDC.Domain.FillData/KafkaCDC.Domain.PostgreSQL.csproj", "KafkaCDC.Domain.FillData/"]
+COPY ["KafkaCDC.Settings/KafkaCDC.Settings.csproj", "KafkaCDC.Settings/"]
 RUN dotnet restore "KafkaCDC.KafkaConnectConfigureConsole/KafkaCDC.KafkaConnectConfigureConsole.csproj"
 COPY . .
 WORKDIR "/src/KafkaCDC.KafkaConnectConfigureConsole"

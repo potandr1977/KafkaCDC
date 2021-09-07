@@ -1,14 +1,20 @@
 version: '3.4'
 
 services:
-  mongodb:
-    image: mongo:latest
+  pgserver:
+    image: postgres
     ports:
-      - 27017:27017
-    container_name: kafkacdc_mongodb
-    restart: always
+      - 5439:5432
+    container_name: kafkacdc_postgres
     environment:
-      - MONGO_INITDB_DATABASE=depositdb
+      - POSTGRES_USER=adm
+      - POSTGRES_PASSWORD=adm
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
   elasticsearch:
     image: 'elasticsearch:6.6.0'
@@ -44,7 +50,7 @@ services:
       KAFKA_MIN_INSYNC_REPLICAS: 1
     depends_on:
       - zookeeper
-      - mongodb
+      - pgserver
 
   connector:
     image: debezium/connect:0.10
@@ -58,7 +64,7 @@ services:
       BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
       - zookeeper
-      - mongodb
+      - pgserver
       - kafka
 
   kafka-manager:
@@ -72,6 +78,10 @@ services:
     environment:
       ZK_HOSTS: zookeeper:2181
       KM_ARGS: -Djava.net.preferIPv4Stack=true
+    depends_on:
+      - zookeeper
+      - pgserver
+      - kafka
 
   kafkacdc.kafkaconnectconfigureconsole:
     image: ${DOCKER_REGISTRY-}kafkacdckafkaconnectconfigureconsole
@@ -79,19 +89,16 @@ services:
       context: .
       dockerfile: KafkaCDC.KafkaConnectConfigureConsole/Dockerfile
     depends_on:
-      - zookeeper
-      - mongodb
       - kafka
 
-  kafkacdc.fillmongoconsole:
-    image: ${DOCKER_REGISTRY-}kafkacdcfillmongoconsole
+  kafkacdc.filldataconsole:
+    image: ${DOCKER_REGISTRY-}kafkacdcfilldataconsole
     build:
       context: .
-      dockerfile: KafkaCDC.FillMongoConsole/Dockerfile
+      dockerfile: KafkaCDC.FillDataConsole/Dockerfile
     depends_on:
-      - zookeeper
-      - mongodb
       - kafka
+      - pgserver
       - kafkacdc.kafkaconnectconfigureconsole
 
   kafkacdc.projectionconsole:
@@ -100,10 +107,10 @@ services:
       context: .
       dockerfile: KafkaCDC.ProjectionConsole/Dockerfile
     depends_on:
-      - zookeeper
-      - mongodb
-      - kafka
       - kafkacdc.kafkaconnectconfigureconsole
+      - kafka
+      - pgserver
+      - elasticsearch
 
   kafkacdc.queryapi:
     image: ${DOCKER_REGISTRY-}kafkacdcqueryapi
@@ -111,7 +118,8 @@ services:
       context: .
       dockerfile: KafkaCDC.QueryApi/Dockerfile
     depends_on:
-      - zookeeper
-      - mongodb
-      - kafka
-      - kafkacdc.projectionconsole
+      - kafkacdc.kafkaconnectconfigureconsole
+      - elasticsearch
+
+volumes:
+  pgdata:

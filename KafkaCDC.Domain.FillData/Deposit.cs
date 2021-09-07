@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KafkaCDC.Domain.Mongo
+namespace KafkaCDC.Domain.FillData
 {
     public class Deposit
     {

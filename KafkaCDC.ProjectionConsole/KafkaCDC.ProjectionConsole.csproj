@@ -14,7 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\KafkaCDC.DataAccess.Elastic\KafkaCDC.DataAccess.Elastic.csproj" />
     <ProjectReference Include="..\KafkaCDC.Domain.Elastic\KafkaCDC.Domain.Elastic.csproj" />
-    <ProjectReference Include="..\KafkaCDC.Domain.Mongo\KafkaCDC.Domain.Mongo.csproj" />
+    <ProjectReference Include="..\KafkaCDC.Domain.FillData\KafkaCDC.Domain.PostgreSQL.csproj" />
     <ProjectReference Include="..\KafkaCDC.Settings\KafkaCDC.Settings.csproj" />
   </ItemGroup>
 
