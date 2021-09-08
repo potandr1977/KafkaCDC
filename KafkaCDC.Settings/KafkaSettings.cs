@@ -9,8 +9,8 @@ namespace KafkaCDC.Settings
     public static class KafkaSettings
     {
         public static string Host = "kafka";
-        public static string TopicName = "deposit-topic";
-        public static string GroupId = "deposit-consumer-group";
+        public static string TopicName = "pgserver.public.Deposits";
+        public static string GroupId = "1";
         public static string Port = "9092";
     }
 }

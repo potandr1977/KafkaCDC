@@ -14,7 +14,6 @@ namespace KafkaCDC.KafkaConnectConfitureConsole
         {
             var json = KafkaConnectSettings.ConnectorSettings;
 
-            //await CreatePostgresTable();
             await SendConfigurationToKafkaConnect(json);
         }
 
@@ -29,7 +28,6 @@ namespace KafkaCDC.KafkaConnectConfitureConsole
             :$"Failed to POST data: ({result.StatusCode}): {returnValue}";
 
             Console.WriteLine(consoleMessage);
-            
         }
     }
 }

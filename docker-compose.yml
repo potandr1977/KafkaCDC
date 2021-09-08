@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   pgserver:
-    image: postgres
+    image: debezium/postgres:13
     ports:
       - 5439:5432
     container_name: kafkacdc_postgres
@@ -15,7 +15,7 @@ services:
       - "wal_level=logical"
     volumes:
       - pgdata:/var/lib/postgresql/data
-
+  
   elasticsearch:
     image: 'elasticsearch:6.6.0'
     ports:
@@ -33,6 +33,8 @@ services:
     container_name: zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
+    depends_on:
+      - pgserver
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -53,7 +55,7 @@ services:
       - pgserver
 
   connector:
-    image: debezium/connect:0.10
+    image: debezium/connect:1.4
     ports:
       - "8083:8083"
     container_name: connector
@@ -63,8 +65,8 @@ services:
       OFFSET_STORAGE_TOPIC: my_connect_offsets
       BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
-      - zookeeper
       - pgserver
+      - zookeeper
       - kafka
 
   kafka-manager:
