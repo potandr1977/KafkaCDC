@@ -55,7 +55,7 @@ services:
       - pgserver
 
   connector:
-    image: debezium/connect:0.10
+    image: debezium/connect:1.4
     ports:
       - "8083:8083"
     container_name: connector
