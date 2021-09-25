@@ -1,9 +1,6 @@
 ﻿using Confluent.Kafka;
-using KafkaCDC.ProjectionConsole.Serialization;
 using KafkaCDC.Settings;
 using System;
-using System.Text.Json;
-using System.Threading;
 
 namespace KafkaCDC.Domain.FillData
 {
@@ -18,11 +15,7 @@ namespace KafkaCDC.Domain.FillData
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
-            using (var consumer = new ConsumerBuilder<Ignore, Deposit>(config)
-                .SetValueDeserializer(new KafkaMessageSerDe<Deposit>(new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                }))
+            using (var consumer = new ConsumerBuilder<Ignore, string>(config)
                 .SetErrorHandler((producer, error) =>
                 {
                     Console.WriteLine("Kafka consumer Error: " + error.Reason);
@@ -32,25 +25,42 @@ namespace KafkaCDC.Domain.FillData
                 .Build())
             {
                 consumer.Subscribe(KafkaSettings.TopicName);
-                var cts = new CancellationTokenSource();
-
-                Console.CancelKeyPress += (_, e) => {
-                    e.Cancel = true; // prevent the process from terminating.
-                    cts.Cancel();
-                };
                 try
                 {
-                    var consumeResult = consumer.Consume(cts.Token);
-                    // handle consumed message.
-                    var m = consumeResult.Message;
+                    /*
+                    var watermark = consumer.QueryWatermarkOffsets(new TopicPartition("products.cache", new Partition(0)), TimeSpan.FromMilliseconds(10000));
+
+                    if (watermark.High.Value == 0)
+                        return;
+                    */
+                    while (true)
+                    {
+                        try
+                        {
+                            ConsumeResult<Ignore, string> cr = consumer.Consume();
+
+                            if (cr.Message?.Value != null)
+                            {
+                                //var item = JsonConvert.DeserializeObject<ProductCacheItem>(cr.Value);
+                                var message = cr.Message.Value;
+                            }
+
+                            /*
+                            if (watermark.High.Value - 1 == cr.Offset.Value)
+                                return;
+                            */
+                        }
+                        catch (Exception e)
+                        {
+                            throw;
+                        }
+                    }
                 }
-                catch (ConsumeException ex)
+                catch (Exception ex)
                 {
-                    Console.Write(ex.Message);
+                    throw;
                 }
-                consumer.Close();
             }
-            Console.WriteLine("Consumer finished");
         }
     }
 }
