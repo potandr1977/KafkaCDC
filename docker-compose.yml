@@ -75,8 +75,8 @@ services:
     ports:
       - "9009:9000"
     links:
-     - zookeeper
-     - kafka
+      - zookeeper
+      - kafka
     environment:
       ZK_HOSTS: zookeeper:2181
       KM_ARGS: -Djava.net.preferIPv4Stack=true
@@ -87,13 +87,11 @@ services:
 
   kowl:
     image: quay.io/cloudhut/kowl:v1.4.0
-    restart: on-failure
-    hostname: kowl
-    volumes:
-    - ./config.yaml:/etc/kowl/config.yaml
+    container_name: kowl
+    environment:
+      - KAFKA_BROKERS=kafka:9092
     ports:
-    - "8090:8080"
-    entrypoint: ./kowl --config.filepath=/etc/kowl/config.yaml
+      - 8090:8080
     depends_on:
       - kafka
 
